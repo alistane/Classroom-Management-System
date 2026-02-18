@@ -33,7 +33,7 @@ void Teacher::print_info()
 
 
 
-std::string Teacher::give_age()
+int Teacher::give_age()
 {
 	return this->age;
 }
@@ -52,4 +52,24 @@ std::string Teacher::give_id()
 std::string Teacher::give_subject()
 {
 	return this->subject;
+}
+
+
+// setter section 
+
+void Teacher::set_name(std::string value)
+{
+	this->name = value;
+}
+void Teacher::set_subject(std::string value)
+{
+	this->subject = value;
+}
+void Teacher::set_id(std::string value)
+{
+	this->id_no = value;
+}
+void Teacher::set_age(int value)
+{
+	this->age = value;
 }

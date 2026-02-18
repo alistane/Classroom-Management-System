@@ -1,6 +1,6 @@
 #include "Student.h"
 
-void Student::create_student(std::string name, std::string age, double attendance_percentage, std::string roll_no)
+void Student::create_student(std::string name, int age, double attendance_percentage, std::string roll_no)
 {
 	this->name = name;
 	this->age = age;
@@ -12,7 +12,7 @@ std::string Student::give_name()
 {
 	return this->name;
 }
-std::string Student::give_age()
+int  Student::give_age()
 {
 	return this->age;
 }

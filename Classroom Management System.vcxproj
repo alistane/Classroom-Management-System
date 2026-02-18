@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="App.h" />
+    <ClInclude Include="CreateStudentDialogue.h" />
     <ClInclude Include="CreateTeacherDialogue.h" />
     <ClInclude Include="MainFrame.h" />
     <ClInclude Include="Person.h" />
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="CreateStudentDialogue.cpp" />
     <ClCompile Include="CreateTeacherDialogue.cpp" />
     <ClCompile Include="MainFrame.cpp" />
     <ClCompile Include="Person.cpp" />
