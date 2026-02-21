@@ -7,18 +7,28 @@ MainFrame::MainFrame(const wxString& title) : wxFrame(nullptr, wxID_ANY, title)
 {
 	// Student 
 	wxButton* create_student = new wxButton(panel, wxID_ANY, "Create Student", wxPoint(800, 50));
-	students_display = new wxListBox(panel, wxID_ANY, wxPoint(500, 100), wxSize(200, 600), student_names);
-	student_count_text = new wxStaticText(panel, wxID_ANY, std::to_string(teachers_created), wxPoint(500, 50));
-
+	students_display = new wxListCtrl(panel, wxID_ANY, wxPoint(300, 100), wxSize(450, 600), wxLC_REPORT | wxLC_SINGLE_SEL | wxLB_NEEDED_SB);
+	student_count_text = new wxStaticText(panel, wxID_ANY, std::to_string(teachers_created), wxPoint(100, 75));
+	wxStaticText* student_count_label = new wxStaticText(panel, wxID_ANY, "Students: ", wxPoint(40, 75));
+	students_display->InsertColumn(0, "Student Name", wxLIST_FORMAT_LEFT, 200);
+	students_display->InsertColumn(1, "Attendance %", wxLIST_FORMAT_LEFT, 120);
+	students_display->InsertColumn(2, "Registeration Number", wxLIST_FORMAT_LEFT, 130);
 	create_student->Bind(wxEVT_BUTTON, &MainFrame::create_s_dialogue, this);
+
+	
 
 	// Teacher
 	wxButton* create_teacher = new wxButton(panel, wxID_ANY, "Create Teacher", wxPoint(905, 50));
 	create_teacher->Bind(wxEVT_BUTTON, &MainFrame::create_t_dialogue, this);
 	teacher_count_text = new wxStaticText(panel, wxID_ANY, std::to_string(teachers_created), wxPoint(100, 50));
 	wxStaticText* teacher_count_label = new wxStaticText(panel, wxID_ANY, "Teachers : ", wxPoint(40, 50));
-	teachers_display = new wxListBox(panel, wxID_ANY, wxPoint(40, 100), wxSize(200, 600), teacher_names);
+	teachers_display = new wxListBox(panel, wxID_ANY, wxPoint(40, 100), wxSize(200, 600), teacher_names, wxLB_NEEDED_SB);
 
+	// other stuff
+	classroom.set_classroom_name("Spring-2026 Object Oriented Programming");
+	wxStaticText* class_label = new wxStaticText(panel, wxID_ANY, classroom.get_classname(), wxPoint(320, 25), wxSize(100, 50));
+	class_label->SetFont(heading_font);
+	wxButton* class_settings = new wxButton(panel, wxID_ANY, "Class Settings", wxPoint(800, 100));
 
 	CreateStatusBar();
 }
@@ -47,13 +57,7 @@ void MainFrame::create_t_dialogue(wxCommandEvent& evt)
 	teachers_pos++;
 	teacher_count_text->SetLabel(std::to_string(teachers_created));
 
-	//for (int i = 0; i < teachers_created; i++)
-	//{
-	//	wxString name = teachers[i].give_name();
-	//	teacher_names.Add(name);
-	//	teachers_display->Append(name);
-	//}
-
+	
 }
 
 void MainFrame::create_s_dialogue(wxCommandEvent& evt)
@@ -73,7 +77,13 @@ void MainFrame::create_s_dialogue(wxCommandEvent& evt)
 	*/
 	student_names.Add(students[students_pos].give_name());
 	wxString name = students[students_pos].give_name();
-	students_display->Append(name);
+
+	
+
+	long index = students_display->InsertItem(students_pos, name);
+	students_display->SetItem(index, 1, std::to_string(students[students_pos].give_attendance()));
+	students_display->SetItem(index, 2, students[students_pos].give_roll());
+	//students_display->Append(name);
 	students_created++;
 	students_pos++;
 	student_count_text->SetLabel(std::to_string(students_created));

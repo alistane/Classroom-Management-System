@@ -5,7 +5,7 @@
 wxIMPLEMENT_APP(App);
 bool App::OnInit()
 {
-	MainFrame* mainframe = new MainFrame("Classroom Management System");
+	MainFrame* mainframe = new MainFrame("Classroom Management System (ADMIN PANEL)");
 	mainframe->SetClientSize(1024, 768);
 	//mainframe->ShowFullScreen(true);
 	mainframe->Center();
