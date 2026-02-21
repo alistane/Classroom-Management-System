@@ -40,9 +40,14 @@ void MainFrame::create_t_dialogue(wxCommandEvent& evt)
 	CreateTeacherDialogue* dialogue = new CreateTeacherDialogue("Create Teacher");
 	dialogue->Show(true);
 
-	teachers[teachers_pos].create_teacher(dialogue->get_enteredname(), dialogue->get_enteredage(), dialogue->get_subject(), dialogue->get_enteredid());
 
-	wxString str = wxString::Format("Teacher created with name : %s, Age : %d, Subject : %s ", teachers[teachers_pos].give_name(), teachers[teachers_pos].give_age(), teachers[teachers_pos].give_subject());
+	classroom.create_teacher(teachers_pos, dialogue->get_enteredname(), dialogue->get_enteredage(), dialogue->get_subject(), dialogue->get_enteredid());
+
+
+	//teachers[teachers_pos].create_teacher(dialogue->get_enteredname(), dialogue->get_enteredage(), dialogue->get_subject(), dialogue->get_enteredid());
+
+	//wxString str = wxString::Format("Teacher created with name : %s, Age : %d, Subject : %s ", classroom.give_teacher_name(teachers_created), teachers[teachers_pos].give_age(), teachers[teachers_pos].give_subject());
+	wxString str = wxString::Format("Teacher created with name : %s", classroom.give_teacher_name(teachers_pos));
 	wxLogStatus(str);
 
 	/*
@@ -50,8 +55,9 @@ void MainFrame::create_t_dialogue(wxCommandEvent& evt)
 	teachers created keeps track of how many teachers have been created so far.
 	teachers_pos is a variable used for creating next teacher. it moves to next position of the teachers array declared.
 	*/ 
-	teacher_names.Add(teachers[teachers_pos].give_name());
-	wxString name = teachers[teachers_pos].give_name();
+
+	teacher_names.Add(classroom.give_teacher_name(teachers_pos));
+	wxString name = classroom.give_teacher_name(teachers_pos);
 	teachers_display->Append(name);
 	teachers_created++;
 	teachers_pos++;
@@ -65,9 +71,14 @@ void MainFrame::create_s_dialogue(wxCommandEvent& evt)
 	CreateStudentDialogue* dialogue = new CreateStudentDialogue("Create Student");
 	dialogue->Show(true);
 
-	students[students_pos].create_student(dialogue->get_enteredname(), dialogue->get_enteredage(), dialogue->get_entered_attendance(), dialogue->get_enteredid());
 
-	wxString str = wxString::Format("Student created with name : %s, Age : %d ", students[students_pos].give_name(), students[students_pos].give_age());
+	classroom.create_student(students_pos, dialogue->get_enteredname(), dialogue->get_enteredage(), dialogue->get_entered_attendance(), dialogue->get_enteredid());
+
+	//students[students_pos].create_student(dialogue->get_enteredname(), dialogue->get_enteredage(), dialogue->get_entered_attendance(), dialogue->get_enteredid());
+
+	//wxString str = wxString::Format("Student created with name : %s, Age : %d ", students[students_pos].give_name(), students[students_pos].give_age());
+	
+	wxString str = wxString::Format("Student created with name : %s", classroom.give_student_name(students_pos));
 	wxLogStatus(str);
 
 	/*
@@ -75,14 +86,14 @@ void MainFrame::create_s_dialogue(wxCommandEvent& evt)
 	teachers created keeps track of how many teachers have been created so far.
 	teachers_pos is a variable used for creating next teacher. it moves to next position of the teachers array declared.
 	*/
-	student_names.Add(students[students_pos].give_name());
-	wxString name = students[students_pos].give_name();
+	student_names.Add(classroom.give_student_name(students_pos));
+	wxString name = classroom.give_student_name(students_pos);
 
 	
 
 	long index = students_display->InsertItem(students_pos, name);
-	students_display->SetItem(index, 1, std::to_string(students[students_pos].give_attendance()));
-	students_display->SetItem(index, 2, students[students_pos].give_roll());
+	students_display->SetItem(index, 1, classroom.give_student_attendance(students_pos));
+	students_display->SetItem(index, 2, classroom.give_student_roll(students_pos));
 	//students_display->Append(name);
 	students_created++;
 	students_pos++;

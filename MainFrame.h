@@ -29,8 +29,8 @@ private:
 
 protected:
 	
-	Student students[10];
-	Teacher teachers[10];
+	//Student students[10];
+	//Teacher teachers[10];
 	
 public:
 	MainFrame(const wxString& title);

@@ -13,6 +13,10 @@ class Student : protected Person
 		double give_attendance();
 		std::string give_roll();
 
-
+		// setters
+		void set_name(std::string name);
+		void set_id(std::string rollnum);
+		void set_age(int age);
+		void set_attendance(double attendance_per);
 };
 
