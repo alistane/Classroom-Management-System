@@ -22,6 +22,7 @@ CreateStudentDialogue::CreateStudentDialogue(const wxString& title)
     age = new wxSpinCtrl(panel, wxID_ANY, "", wxPoint(300, 100), wxDefaultSize);
     age->SetRange(18, 100);
 
+    
 
     wxButton* create_button = new wxButton(panel, wxID_ANY, "Create", wxPoint(200, 300));
     create_button->Bind(wxEVT_BUTTON, &CreateStudentDialogue::create_object, this);
@@ -37,17 +38,23 @@ void CreateStudentDialogue::create_object(wxCommandEvent& evt)
     entered_age = age->GetValue();
     entered_attendance_percent = attendance->GetValue();
 
-    if (entered_age < 18 || entered_age > 100)
+   
+
+    if (entered_name == "")
     {
-        wxLogError("Incorrect Age value!");
+        wxLogError("Enter a Name!");
+    }
+    
+    if (entered_id == "")
+    {
+        wxLogError("Enter a ID!");
     }
 
-    else
+    if (entered_name != "" && entered_id != "")
     {
         Destroy();
 
     }
-
 
 }
 

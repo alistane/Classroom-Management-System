@@ -12,12 +12,25 @@ private:
 	wxPanel* panel = new wxPanel(this, wxID_ANY);
 	ClassRoom classroom;
 	wxFont heading_font = wxFont(15, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
-
+	wxFont button_font = wxFont(15, wxFONTFAMILY_DEFAULT, wxFONTSTYLE_NORMAL, wxFONTWEIGHT_BOLD);
+	wxPanel* left_panel;
+	wxPanel* right_panel;
+	wxPanel* center_panel;
+	wxPanel* upper_panel;
+	wxButton* Dash;
+	wxButton* teachers;
+	wxBoxSizer* leftsizer;
+	wxStaticText* class_label;
+	wxButton* class_settings;
+	wxBoxSizer* uppersizer;
+	wxStaticText* class_term;
+	wxBoxSizer* content_sizer;
+	wxButton* create_student;
 	//Teachers
 	int teachers_created{ 0 }; // just keeps track of how many teachers have been created so far.
 	int teachers_pos{ 0 }; // this will be used for object creation.
 	wxStaticText* teacher_count_text;
-	wxListBox* teachers_display;
+	wxListCtrl* teachers_display;
 	wxArrayString teacher_names; // names of teachers.
 	
 	//Students
@@ -36,5 +49,10 @@ public:
 	MainFrame(const wxString& title);
 	void create_t_dialogue(wxCommandEvent& evt);
 	void create_s_dialogue(wxCommandEvent& evt);
+	void show_dashboard(wxCommandEvent& evt);
+	void show_teacher_panel(wxCommandEvent& evt);
+	void create_panels();
+	void create_left_panel();
+	void create_upper_panel();
 };
 

@@ -8,16 +8,24 @@ CreateTeacherDialogue::CreateTeacherDialogue(const wxString& title)
     wxStaticText* name_label = new wxStaticText(panel, wxID_ANY, "Name: ", wxPoint(50,25));
     name = new wxTextCtrl(panel, wxID_ANY, wxEmptyString, wxPoint(50,50));
     
-    wxStaticText* subject_label = new wxStaticText(panel, wxID_ANY, "Subject: ", wxPoint(300, 25));
-    subject = new wxTextCtrl(panel, wxID_ANY, wxEmptyString, wxPoint(300, 50));
+   
 
-    wxStaticText* id_label = new wxStaticText(panel, wxID_ANY, "ID: ", wxPoint(50, 75));
-    id_capture = new wxTextCtrl(panel, wxID_ANY, wxEmptyString, wxPoint(50, 100));
+    wxStaticText* id_label = new wxStaticText(panel, wxID_ANY, "ID: ", wxPoint(50, 100));
+    id_capture = new wxTextCtrl(panel, wxID_ANY, wxEmptyString, wxPoint(50, 125));
 
-    wxStaticText* age_label = new wxStaticText(panel, wxID_ANY, "Age: ", wxPoint(300, 75));
-    age = new wxSpinCtrl(panel, wxID_ANY, "", wxPoint(300, 100), wxDefaultSize);
+    wxStaticText* age_label = new wxStaticText(panel, wxID_ANY, "Age: ", wxPoint(300, 165));
+    age = new wxSpinCtrl(panel, wxID_ANY, "", wxPoint(300, 190), wxDefaultSize);
     age->SetRange(18, 100);
 
+    // populating subject_options array.
+    for (int i = 0; i < 5; i++)
+    {
+        subject_options.Add(dummy.courses[i]);
+    }
+    
+    wxStaticText* subject_label = new wxStaticText(panel, wxID_ANY, "Subject: ", wxPoint(200, 25));
+
+    subject_list = new wxListBox(panel, wxID_ANY, wxPoint(200, 50), wxSize(200, 100), subject_options, wxLB_NEEDED_SB);
 
     wxButton* create_button = new wxButton(panel, wxID_ANY, "Create", wxPoint(200, 300));
     create_button->Bind(wxEVT_BUTTON, &CreateTeacherDialogue::create_object, this);
@@ -29,16 +37,26 @@ CreateTeacherDialogue::CreateTeacherDialogue(const wxString& title)
 void CreateTeacherDialogue :: create_object(wxCommandEvent& evt)
 {
     entered_name = name->GetValue();
-    entered_subject = subject->GetValue();
+    entered_subject = dummy.courses[subject_list->GetSelection()];
     entered_id = id_capture->GetValue();
     entered_age = age->GetValue();
 
-    if (entered_age < 18 || entered_age > 100)
-    {
-        wxLogError("Incorrect Age value!");
-    }
+    
 
-    else
+    if (entered_name == "")
+    {
+        wxLogError("Enter a Name!");
+    }
+    if (entered_subject == "")
+    {
+        wxLogError("Choose a subject!");
+    }
+    if (entered_id == "")
+    {
+        wxLogError("Enter a ID!");
+    }
+    
+    if(entered_name != "" && entered_subject != "" && entered_id != "")
     {
         Destroy();
 
